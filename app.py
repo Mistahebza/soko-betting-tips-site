@@ -478,10 +478,10 @@ def create_app(test_config=None):
             return render_template('error.html', message=data['error']), 503
         return jsonify(data)
 
-    def get_fixtures(league=None, date=None, team=None, date_from=None, date_to=None, limit=None):
+    def get_fixtures(league=None, date=None, team=None, date_from=None, date_to=None, limit=None, round=None):
         """Fetch fixtures from API-Sports `/fixtures` endpoint with optional filters.
 
-        Supported filters: `league`, `date`, `team`, `from` (date_from), `to` (date_to), `limit`.
+        Supported filters: `league`, `date`, `team`, `from` (date_from), `to` (date_to), `limit`, `round`.
         Returns payload dict or dict with `error` key on failure.
         """
         key = os.getenv('API_SPORTS_KEY') or current_app.config.get('API_KEY')
@@ -489,7 +489,7 @@ def create_app(test_config=None):
             return {'error': 'API key for API-Sports is not configured. Please set API_SPORTS_KEY or API_FOOTBALL_KEY.'}
 
         cache = current_app.config['CACHE']
-        query_key = f"fixtures:{league or ''}:{date or ''}:{team or ''}:{date_from or ''}:{date_to or ''}:{limit or ''}"
+        query_key = f"fixtures:{league or ''}:{date or ''}:{team or ''}:{date_from or ''}:{date_to or ''}:{limit or ''}:{round or ''}"
         cached = cache.get(query_key)
         ts = cache.get('timestamp')
         ttl = current_app.config.get('CACHE_TTL', 3600)
@@ -506,6 +506,8 @@ def create_app(test_config=None):
             params['date'] = date
         if team is not None:
             params['team'] = team
+        if round is not None:
+            params['round'] = round
         if date_from is not None:
             params['from'] = date_from
         if date_to is not None:
@@ -537,6 +539,7 @@ def create_app(test_config=None):
         team = request.args.get('team')
         date_from = request.args.get('from')
         date_to = request.args.get('to')
+        round = request.args.get('round')
         limit = request.args.get('limit')
 
         # Normalize numbers
@@ -550,13 +553,18 @@ def create_app(test_config=None):
                 team = int(team)
             except ValueError:
                 pass
+        if round is not None:
+            try:
+                round = int(round)
+            except ValueError:
+                pass
         if limit is not None:
             try:
                 limit = int(limit)
             except ValueError:
                 pass
 
-        data = get_fixtures(league=league, date=date, team=team, date_from=date_from, date_to=date_to, limit=limit)
+        data = get_fixtures(league=league, date=date, team=team, date_from=date_from, date_to=date_to, limit=limit, round=round)
         if isinstance(data, dict) and 'error' in data:
             return render_template('error.html', message=data['error']), 503
         return jsonify(data)
