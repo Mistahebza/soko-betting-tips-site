@@ -630,6 +630,64 @@ def create_app(test_config=None):
             return render_template('error.html', message=data['error']), 503
         return jsonify(data)
 
+    def get_head_to_head(team_a, team_b, include=None, **extra_params):
+        """Proxy SportMonks head-to-head fixtures endpoint.
+
+        Path: /v3/football/fixtures/head-to-head/<team_a>/<team_b>
+        Accepts `include` and other query params; requires SPORTMONKS_KEY.
+        Returns JSON payload or dict with `error` key on failure.
+        """
+        key = os.getenv('SPORTMONKS_KEY') or current_app.config.get('SPORTMONKS_KEY') or current_app.config.get('API_KEY')
+        if not key:
+            return {'error': 'API key for SportMonks is not configured. Please set SPORTMONKS_KEY.'}
+
+        cache = current_app.config['CACHE']
+        query_key = f"headtohead:{team_a}:{team_b}:{include or ''}"
+        if extra_params:
+            extra_key = ":".join(f"{k}={v}" for k, v in sorted(extra_params.items()))
+            query_key = f"{query_key}:{extra_key}"
+
+        cached = cache.get(query_key)
+        ts = cache.get('timestamp')
+        ttl = current_app.config.get('CACHE_TTL', 3600)
+        if cached and ts and (datetime.now() - ts).total_seconds() < ttl:
+            return cached
+
+        session = current_app.config['SESSION']
+        headers = {"Authorization": f"Bearer {key}"}
+        url = f'https://api.sportmonks.com/v3/football/fixtures/head-to-head/{team_a}/{team_b}'
+        params = {}
+        if include:
+            params['include'] = include
+        params.update({k: v for k, v in extra_params.items() if v is not None})
+
+        try:
+            resp = session.get(url, headers=headers, params=params, timeout=10)
+        except requests.RequestException as e:
+            logger.exception('Error fetching head-to-head fixtures')
+            return {'error': f'Network error while fetching head-to-head fixtures: {e}'}
+
+        if resp.status_code != 200:
+            logger.warning('Head-to-head API responded with status %s', resp.status_code)
+            return {'error': f'API Error: {resp.status_code} - Unable to fetch head-to-head fixtures'}
+
+        payload = resp.json()
+        cache[query_key] = payload
+        cache['timestamp'] = datetime.now()
+        return payload
+
+    @app.route('/fixtures/head-to-head/<int:team_a>/<int:team_b>')
+    def head_to_head(team_a, team_b):
+        from flask import request, jsonify
+
+        include = request.args.get('include')
+        extra = {k: v for k, v in request.args.items() if k != 'include'}
+
+        data = get_head_to_head(team_a, team_b, include=include, **extra)
+        if isinstance(data, dict) and 'error' in data:
+            return render_template('error.html', message=data['error']), 503
+        return jsonify(data)
+
     @app.route('/')
     def home():
         predictions = get_predictions()
