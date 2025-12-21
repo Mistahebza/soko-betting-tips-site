@@ -470,6 +470,89 @@ def create_app(test_config=None):
             return render_template('error.html', message=data['error']), 503
         return jsonify(data)
 
+    def get_fixtures(league=None, date=None, team=None, date_from=None, date_to=None, limit=None):
+        """Fetch fixtures from API-Sports `/fixtures` endpoint with optional filters.
+
+        Supported filters: `league`, `date`, `team`, `from` (date_from), `to` (date_to), `limit`.
+        Returns payload dict or dict with `error` key on failure.
+        """
+        key = os.getenv('API_SPORTS_KEY') or current_app.config.get('API_KEY')
+        if not key:
+            return {'error': 'API key for API-Sports is not configured. Please set API_SPORTS_KEY or API_FOOTBALL_KEY.'}
+
+        cache = current_app.config['CACHE']
+        query_key = f"fixtures:{league or ''}:{date or ''}:{team or ''}:{date_from or ''}:{date_to or ''}:{limit or ''}"
+        cached = cache.get(query_key)
+        ts = cache.get('timestamp')
+        ttl = current_app.config.get('CACHE_TTL', 3600)
+        if cached and ts and (datetime.now() - ts).total_seconds() < ttl:
+            return cached
+
+        session = current_app.config['SESSION']
+        headers = {"x-apisports-key": key}
+        url = 'https://v3.football.api-sports.io/fixtures'
+        params = {}
+        if league is not None:
+            params['league'] = league
+        if date is not None:
+            params['date'] = date
+        if team is not None:
+            params['team'] = team
+        if date_from is not None:
+            params['from'] = date_from
+        if date_to is not None:
+            params['to'] = date_to
+        if limit is not None:
+            params['limit'] = limit
+
+        try:
+            resp = session.get(url, headers=headers, params=params, timeout=10)
+        except requests.RequestException as e:
+            logger.exception('Error fetching fixtures')
+            return {'error': f'Network error while fetching fixtures: {e}'}
+
+        if resp.status_code != 200:
+            logger.warning('Fixtures API responded with status %s', resp.status_code)
+            return {'error': f'API Error: {resp.status_code} - Unable to fetch fixtures'}
+
+        payload = resp.json()
+        cache[query_key] = payload
+        cache['timestamp'] = datetime.now()
+        return payload
+
+    @app.route('/fixtures')
+    def fixtures():
+        from flask import request, jsonify
+
+        league = request.args.get('league')
+        date = request.args.get('date')
+        team = request.args.get('team')
+        date_from = request.args.get('from')
+        date_to = request.args.get('to')
+        limit = request.args.get('limit')
+
+        # Normalize numbers
+        if league is not None:
+            try:
+                league = int(league)
+            except ValueError:
+                pass
+        if team is not None:
+            try:
+                team = int(team)
+            except ValueError:
+                pass
+        if limit is not None:
+            try:
+                limit = int(limit)
+            except ValueError:
+                pass
+
+        data = get_fixtures(league=league, date=date, team=team, date_from=date_from, date_to=date_to, limit=limit)
+        if isinstance(data, dict) and 'error' in data:
+            return render_template('error.html', message=data['error']), 503
+        return jsonify(data)
+
     @app.route('/')
     def home():
         predictions = get_predictions()

@@ -100,6 +100,23 @@ curl -s "http://127.0.0.1:5000/teams/statistics?league=39&team=33&season=2019" |
 curl -s "http://127.0.0.1:5000/teams/statistics?league=39&team=33&season=2019&date=2019-10-08" | jq .
 ```
 
+- List fixtures (unfiltered):
+
+```bash
+curl -s "http://127.0.0.1:5000/fixtures" | jq .
+```
+
+- Filter fixtures by league and date:
+
+```bash
+curl -s "http://127.0.0.1:5000/fixtures?league=8&date=2025-10-25" | jq .
+```
+
+- Filter fixtures by team or date range:
+
+```bash
+curl -s "http://127.0.0.1:5000/fixtures?team=14&from=2025-10-01&to=2025-10-31" | jq .
+```
 ## CI
 
 A GitHub Actions workflow is included at `.github/workflows/ci.yml` which runs tests on push and PRs.
