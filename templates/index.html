@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Football Predictions Today - {{ today_str }}</title>
+    <style>
+        body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; background: #f8f9fa; color: #333; line-height: 1.6; }
+        header { background: #004a8f; color: white; padding: 15px; text-align: center; }
+        h1 { margin: 0; font-size: 1.8em; }
+        nav { background: #003366; padding: 12px; text-align: center; }
+        nav ul { list-style: none; padding: 0; margin: 0; display: flex; justify-content: center; flex-wrap: wrap; gap: 15px; }
+        nav a { color: white; text-decoration: none; font-weight: bold; padding: 8px 12px; border-radius: 4px; transition: background 0.3s; }
+        nav a:hover { background: #0055aa; }
+        .container { max-width: 1200px; margin: 20px auto; padding: 0 10px; }
+        .league-section { margin-bottom: 30px; background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+        .league-header { background: #004a8f; color: white; padding: 12px 15px; font-size: 1.3em; display: flex; justify-content: space-between; align-items: center; }
+        .league-header a { color: #a0d8ff; text-decoration: none; font-size: 0.9em; }
+        table { width: 100%; border-collapse: collapse; }
+        th { background: #003366; color: white; padding: 12px; text-align: left; font-weight: normal; }
+        td { padding: 12px; border-bottom: 1px solid #eee; }
+        tr:hover { background: #f0f7ff; }
+        .prob { font-weight: bold; }
+        .winner { color: #006400; font-weight: bold; }
+        .advice { font-style: italic; color: #444; }
+        @media (max-width: 768px) {
+            table, thead, tbody, th, td, tr { display: block; width: 100%; }
+            thead tr { display: none; }
+            tr { border: 1px solid #ddd; margin-bottom: 10px; border-radius: 6px; overflow: hidden; }
+            td { border: none; padding-left: 50%; position: relative; }
+            td:before { content: attr(data-label); position: absolute; left: 10px; font-weight: bold; color: #004a8f; }
+            nav ul { flex-direction: column; }
+        }
+        .disclaimer { text-align: center; font-size: 0.85em; color: #666; margin: 40px; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Football Predictions & Tips</h1>
+        <p>{{ today_str }}</p>
+    </header>
+    
+    <nav>
+        <ul>
+            <li><a href="#">Today</a></li>
+            <li><a href="#">Tomorrow</a></li>
+            <li><a href="#">Live Predictions</a></li>
+            <li><a href="#">Top Tips</a></li>
+            <li><a href="#">Trends</a></li>
+            <li><a href="#">My Leagues</a></li>
+        </ul>
+    </nav>
+    
+    <div class="container">
+        {% if predictions %}
+            {% for league, preds in predictions.items() %}
+            <div class="league-section">
+                <div class="league-header">
+                    <span>{{ league }}</span>
+                    <a href="#">Standings →</a>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Match</th>
+                            <th>1X2 Probabilities</th>
+                            <th>Predicted Winner</th>
+                            <th>Correct Score</th>
+                            <th>Goals</th>
+                            <th>Over/Under 2.5</th>
+                            <th>Advice</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for p in preds %}
+                        <tr>
+                            <td data-label="Match">{{ p.match }}</td>
+                            <td data-label="Probabilities" class="prob">{{ p.win_probs }}</td>
+                            <td data-label="Winner" class="winner">{{ p.winner }}</td>
+                            <td data-label="Score">{{ p.correct_score }}</td>
+                            <td data-label="Goals">{{ p.goals }}</td>
+                            <td data-label="O/U">{{ p.under_over }}</td>
+                            <td data-label="Advice" class="advice">{{ p.advice }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% endfor %}
+        {% else %}
+            <p>No predictions available today. Please try again later.</p>
+        {% endif %}
+    </div>
+    
+    <p class="disclaimer">
+        Predictions powered by API-Football • For entertainment purposes only • Gamble responsibly
+    </p>
+</body>
+</html>
