@@ -118,6 +118,15 @@ curl -s "http://127.0.0.1:5000/fixtures?league=8&date=2025-10-25" | jq .
 curl -s "http://127.0.0.1:5000/fixtures?team=14&from=2025-10-01&to=2025-10-31" | jq .
 ```
 
+- Live inplay scores (SportMonks):
+
+```bash
+curl -s "http://127.0.0.1:5000/livescores/inplay?include=participants;scores;periods;events;league.country;round" \
+  -H "Authorization: Bearer $SPORTMONKS_KEY" | jq .
+```
+
+Note: provide a SportMonks API key via `export SPORTMONKS_KEY=...` for this endpoint.
+
 ### Test fixtures sample 🧪
 
 A sample fixtures payload used by the unit tests is included at `tests/fixtures/fixtures_sample.json`.
