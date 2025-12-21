@@ -1,0 +1,74 @@
+{
+  "id": 372210,
+  "sport_id": 1,
+  "league_id": 8,
+  "season_id": 25583,
+  "stage_id": 77476879,
+  "name": "16",
+  "finished": true,
+  "is_current": false,
+  "starting_at": "2025-12-13",
+  "ending_at": "2025-12-15",
+  "games_in_current_week": false,
+  "fixtures": [
+    {
+      "id": 19427612,
+      "sport_id": 1,
+      "league_id": 8,
+      "season_id": 25583,
+      "stage_id": 77476879,
+      "group_id": null,
+      "aggregate_id": null,
+      "round_id": 372210,
+      "state_id": 5,
+      "venue_id": 206,
+      "name": "Manchester United vs AFC Bournemouth",
+      "starting_at": "2025-12-15 20:00:00",
+      "result_info": "Game ended in draw.",
+      "leg": "1/1",
+      "details": null,
+      "length": 90,
+      "placeholder": false,
+      "has_odds": true,
+      "has_premium_odds": true,
+      "starting_at_timestamp": 1765828800,
+      "odds": [
+        {
+          "id": 207503439156,
+          "fixture_id": 19427612,
+          "market_id": 1,
+          "bookmaker_id": 2,
+          "label": "Away",
+          "value": "4.10"
+        }
+      ],
+      "participants": [
+        {
+          "id": 14,
+          "sport_id": 1,
+          "country_id": 462,
+          "venue_id": 206,
+          "gender": "male",
+          "name": "Manchester United",
+          "short_code": "MUN"
+        },
+        {
+          "id": 52,
+          "sport_id": 1,
+          "country_id": 462,
+          "venue_id": 146,
+          "gender": "male",
+          "name": "AFC Bournemouth",
+          "short_code": "BOU"
+        }
+      ]
+    }
+  ],
+  "league": {
+    "id": 8,
+    "sport_id": 1,
+    "country_id": 462,
+    "name": "Premier League",
+    "active": true
+  }
+}
