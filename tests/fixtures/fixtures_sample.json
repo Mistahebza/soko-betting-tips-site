@@ -1,0 +1,457 @@
+{
+  "response": [
+    {
+      "id": 19427543,
+      "sport_id": 1,
+      "league_id": 8,
+      "season_id": 25583,
+      "stage_id": 77476879,
+      "group_id": null,
+      "aggregate_id": null,
+      "round_id": 372203,
+      "state_id": 5,
+      "venue_id": 206,
+      "name": "Manchester United vs Brighton & Hove Albion",
+      "starting_at": "2025-10-25 16:30:00",
+      "result_info": null,
+      "leg": "1/1",
+      "details": null,
+      "length": 90,
+      "placeholder": false,
+      "has_odds": true,
+      "has_premium_odds": true,
+      "starting_at_timestamp": 1761409800,
+      "participants": [
+        {
+          "id": 14,
+          "sport_id": 1,
+          "country_id": 462,
+          "venue_id": 206,
+          "gender": "male",
+          "name": "Manchester United",
+          "short_code": "MUN",
+          "image_path": "https://cdn.sportmonks.com/images/soccer/teams/14/14.png",
+          "founded": 1878,
+          "type": "domestic",
+          "placeholder": false,
+          "last_played_at": "2025-12-15 20:00:00",
+          "meta": {
+            "location": "home",
+            "position": 10,
+            "winner": false
+          }
+        },
+        {
+          "id": 78,
+          "sport_id": 1,
+          "country_id": 462,
+          "venue_id": 480,
+          "gender": "male",
+          "name": "Brighton & Hove Albion",
+          "short_code": "BHA",
+          "image_path": "https://cdn.sportmonks.com/images/soccer/teams/14/78.png",
+          "founded": 1901,
+          "type": "domestic",
+          "placeholder": false,
+          "last_played_at": "2025-12-20 15:00:00",
+          "meta": {
+            "location": "away",
+            "position": 6,
+            "winner": false
+          }
+        }
+      ],
+      "league": {
+        "id": 8,
+        "sport_id": 1,
+        "country_id": 462,
+        "name": "Premier League",
+        "active": true,
+        "short_code": "UK PL",
+        "image_path": "https://cdn.sportmonks.com/images/soccer/leagues/8/8.png",
+        "type": "league",
+        "sub_type": "domestic",
+        "last_played_at": "2025-12-20 20:00:00",
+        "category": 1,
+        "has_jerseys": false,
+        "country": {
+          "id": 462,
+          "continent_id": 1,
+          "name": "England",
+          "official_name": "England",
+          "fifa_name": "ENG",
+          "iso2": "EN",
+          "iso3": "ENG",
+          "latitude": "54.56088638305664",
+          "longitude": "-2.2125117778778076",
+          "borders": [
+            "IRL"
+          ],
+          "image_path": "https://cdn.sportmonks.com/images/countries/png/short/en.png"
+        }
+      },
+      "scores": [
+        {
+          "id": 17307308,
+          "fixture_id": 19427543,
+          "type_id": 1,
+          "participant_id": 14,
+          "score": {
+            "goals": 0,
+            "participant": "home"
+          },
+          "description": "1ST_HALF"
+        },
+        {
+          "id": 17307305,
+          "fixture_id": 19427543,
+          "type_id": 1525,
+          "participant_id": 78,
+          "score": {
+            "goals": 0,
+            "participant": "away"
+          },
+          "description": "CURRENT"
+        }
+      ],
+      "events": [],
+      "periods": [
+        {
+          "id": 6326703,
+          "fixture_id": 19427543,
+          "type_id": 1,
+          "started": 1761409868,
+          "ended": 1761412645,
+          "ticking": true,
+          "sort_order": 1,
+          "description": "1st-half",
+          "time_added": 1,
+          "minutes": 16,
+          "seconds": 17,
+          "has_timer": true
+        }
+      ],
+      "round": {
+        "id": 372203,
+        "sport_id": 1,
+        "league_id": 8,
+        "season_id": 25583,
+        "stage_id": 77476879,
+        "name": "9",
+        "finished": true,
+        "is_current": false,
+        "starting_at": "2025-10-24",
+        "ending_at": "2025-10-26",
+        "games_in_current_week": false
+      }
+    },
+    {
+      "id": 19427539,
+      "sport_id": 1,
+      "league_id": 8,
+      "season_id": 25583,
+      "stage_id": 77476879,
+      "group_id": null,
+      "aggregate_id": null,
+      "round_id": 372203,
+      "state_id": 5,
+      "venue_id": 338817,
+      "name": "Brentford vs Liverpool",
+      "starting_at": "2025-10-25 19:00:00",
+      "result_info": null,
+      "leg": "1/1",
+      "details": null,
+      "length": 90,
+      "placeholder": false,
+      "has_odds": true,
+      "has_premium_odds": true,
+      "starting_at_timestamp": 1761418800,
+      "participants": [
+        {
+          "id": 8,
+          "sport_id": 1,
+          "country_id": 462,
+          "venue_id": 230,
+          "gender": "male",
+          "name": "Liverpool",
+          "short_code": "LIV",
+          "image_path": "https://cdn.sportmonks.com/images/soccer/teams/8/8.png",
+          "founded": 1892,
+          "type": "domestic",
+          "placeholder": false,
+          "last_played_at": "2025-12-20 17:30:00",
+          "meta": {
+            "location": "away",
+            "position": 4,
+            "winner": false
+          }
+        },
+        {
+          "id": 236,
+          "sport_id": 1,
+          "country_id": 462,
+          "venue_id": 338817,
+          "gender": "male",
+          "name": "Brentford",
+          "short_code": "BRE",
+          "image_path": "https://cdn.sportmonks.com/images/soccer/teams/12/236.png",
+          "founded": 1889,
+          "type": "domestic",
+          "placeholder": false,
+          "last_played_at": "2025-12-20 15:00:00",
+          "meta": {
+            "location": "home",
+            "position": 15,
+            "winner": false
+          }
+        }
+      ],
+      "league": {
+        "id": 8,
+        "sport_id": 1,
+        "country_id": 462,
+        "name": "Premier League",
+        "active": true,
+        "short_code": "UK PL",
+        "image_path": "https://cdn.sportmonks.com/images/soccer/leagues/8/8.png",
+        "type": "league",
+        "sub_type": "domestic",
+        "last_played_at": "2025-12-20 20:00:00",
+        "category": 1,
+        "has_jerseys": false,
+        "country": {
+          "id": 462,
+          "continent_id": 1,
+          "name": "England",
+          "official_name": "England",
+          "fifa_name": "ENG",
+          "iso2": "EN",
+          "iso3": "ENG",
+          "latitude": "54.56088638305664",
+          "longitude": "-2.2125117778778076",
+          "borders": [
+            "IRL"
+          ],
+          "image_path": "https://cdn.sportmonks.com/images/countries/png/short/en.png"
+        }
+      },
+      "scores": [
+        {
+          "id": 17309565,
+          "fixture_id": 19427539,
+          "type_id": 1,
+          "participant_id": 236,
+          "score": {
+            "goals": 1,
+            "participant": "home"
+          },
+          "description": "1ST_HALF"
+        }
+      ],
+      "events": [
+        {
+          "id": 151918598,
+          "fixture_id": 19427539,
+          "period_id": 6327448,
+          "participant_id": 236,
+          "type_id": 14,
+          "section": "event",
+          "player_id": 37543248,
+          "player_name": "Dango Ouattara",
+          "result": "1-0",
+          "info": "Left foot shot",
+          "addition": "1st Goal",
+          "minute": 5,
+          "sort_order": 1,
+          "type": {
+            "id": 14,
+            "name": "Goal",
+            "code": "goal"
+          }
+        }
+      ],
+      "periods": [
+        {
+          "id": 6327448,
+          "fixture_id": 19427539,
+          "type_id": 1,
+          "started": 1761418830,
+          "ended": 1761421850,
+          "ticking": true,
+          "sort_order": 1,
+          "description": "1st-half",
+          "time_added": 3,
+          "minutes": 16,
+          "seconds": 20,
+          "has_timer": true
+        }
+      ],
+      "round": {
+        "id": 372203,
+        "sport_id": 1,
+        "league_id": 8,
+        "season_id": 25583,
+        "stage_id": 77476879,
+        "name": "9",
+        "finished": true,
+        "is_current": false,
+        "starting_at": "2025-10-24",
+        "ending_at": "2025-10-26",
+        "games_in_current_week": false
+      }
+    },
+    {
+      "id": 19427540,
+      "sport_id": 1,
+      "league_id": 8,
+      "season_id": 25583,
+      "stage_id": 77476879,
+      "group_id": null,
+      "aggregate_id": null,
+      "round_id": 372203,
+      "state_id": 5,
+      "venue_id": 321614,
+      "name": "Chelsea vs Sunderland",
+      "starting_at": "2025-10-25 14:00:00",
+      "result_info": null,
+      "leg": "1/1",
+      "details": null,
+      "length": 90,
+      "placeholder": false,
+      "has_odds": true,
+      "has_premium_odds": true,
+      "starting_at_timestamp": 1761400800,
+      "participants": [
+        {
+          "id": 18,
+          "sport_id": 1,
+          "country_id": 462,
+          "venue_id": 321614,
+          "gender": "male",
+          "name": "Chelsea",
+          "short_code": "CHE",
+          "image_path": "https://cdn.sportmonks.com/images/soccer/teams/18/18.png",
+          "founded": 1905,
+          "type": "domestic",
+          "placeholder": false,
+          "last_played_at": "2025-12-20 12:30:00",
+          "meta": {
+            "location": "home",
+            "position": 5,
+            "winner": false
+          }
+        },
+        {
+          "id": 3,
+          "sport_id": 1,
+          "country_id": 462,
+          "venue_id": 212,
+          "gender": "male",
+          "name": "Sunderland",
+          "short_code": "SUN",
+          "image_path": "https://cdn.sportmonks.com/images/soccer/teams/3/3.png",
+          "founded": 1879,
+          "type": "domestic",
+          "placeholder": false,
+          "last_played_at": "2025-12-20 15:00:00",
+          "meta": {
+            "location": "away",
+            "position": 7,
+            "winner": false
+          }
+        }
+      ],
+      "league": {
+        "id": 8,
+        "sport_id": 1,
+        "country_id": 462,
+        "name": "Premier League",
+        "active": true,
+        "short_code": "UK PL",
+        "image_path": "https://cdn.sportmonks.com/images/soccer/leagues/8/8.png",
+        "type": "league",
+        "sub_type": "domestic",
+        "last_played_at": "2025-12-20 20:00:00",
+        "category": 1,
+        "has_jerseys": false,
+        "country": {
+          "id": 462,
+          "continent_id": 1,
+          "name": "England",
+          "official_name": "England",
+          "fifa_name": "ENG",
+          "iso2": "EN",
+          "iso3": "ENG",
+          "latitude": "54.56088638305664",
+          "longitude": "-2.2125117778778076",
+          "borders": [
+            "IRL"
+          ],
+          "image_path": "https://cdn.sportmonks.com/images/countries/png/short/en.png"
+        }
+      }
+    },
+    {
+      "id": 19427544,
+      "sport_id": 1,
+      "league_id": 8,
+      "season_id": 25583,
+      "stage_id": 77476879,
+      "group_id": null,
+      "aggregate_id": null,
+      "round_id": 372203,
+      "state_id": 5,
+      "venue_id": 449,
+      "name": "Newcastle United vs Fulham",
+      "starting_at": "2025-10-25 14:00:00",
+      "result_info": null,
+      "leg": "1/1",
+      "details": null,
+      "length": 90,
+      "placeholder": false,
+      "has_odds": true,
+      "has_premium_odds": true,
+      "starting_at_timestamp": 1761400800,
+      "participants": [
+        {
+          "id": 20,
+          "sport_id": 1,
+          "country_id": 462,
+          "venue_id": 449,
+          "gender": "male",
+          "name": "Newcastle United",
+          "short_code": "NEW",
+          "image_path": "https://cdn.sportmonks.com/images/soccer/teams/20/20.png",
+          "founded": 1892,
+          "type": "domestic",
+          "placeholder": false,
+          "last_played_at": "2025-12-20 12:30:00",
+          "meta": {
+            "location": "home",
+            "position": 15,
+            "winner": false
+          }
+        },
+        {
+          "id": 11,
+          "sport_id": 1,
+          "country_id": 462,
+          "venue_id": 485,
+          "gender": "male",
+          "name": "Fulham",
+          "short_code": "FUL",
+          "image_path": "https://cdn.sportmonks.com/images/soccer/teams/3/3.png",
+          "founded": 1879,
+          "type": "domestic",
+          "placeholder": false,
+          "last_played_at": "2025-12-17 20:15:00",
+          "meta": {
+            "location": "away",
+            "position": 16,
+            "winner": false
+          }
+        }
+      ]
+    }
+  ]
+}
