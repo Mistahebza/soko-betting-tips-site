@@ -1,5 +1,7 @@
 # Soko Betting Tips Site
 
+[![CI](https://github.com/Mistahebza/soko-betting-tips-site/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/Mistahebza/soko-betting-tips-site/actions/workflows/ci.yml)
+
 A minimal Flask app that fetches football predictions from API-Football and displays daily tips.
 
 ## Features
