@@ -43,6 +43,14 @@ def create_app(test_config=None):
         api_key = os.getenv('API_FOOTBALL_KEY')
 
     app.config['API_KEY'] = api_key
+    # SportMonks key (optional, can be provided in test_config)
+    sportmonks_key = None
+    if test_config and 'SPORTMONKS_KEY' in test_config:
+        sportmonks_key = test_config['SPORTMONKS_KEY']
+    else:
+        sportmonks_key = os.getenv('SPORTMONKS_KEY')
+    app.config['SPORTMONKS_KEY'] = sportmonks_key
+
     app.config['BASE_URL'] = BASE_URL
     app.config['SESSION'] = _create_session()
     # simple in-memory cache with a timestamp; TTL is configurable via CACHE_TTL (seconds)
@@ -549,6 +557,67 @@ def create_app(test_config=None):
                 pass
 
         data = get_fixtures(league=league, date=date, team=team, date_from=date_from, date_to=date_to, limit=limit)
+        if isinstance(data, dict) and 'error' in data:
+            return render_template('error.html', message=data['error']), 503
+        return jsonify(data)
+
+    def get_livescores_inplay(include=None, **extra_params):
+        """Proxy SportMonks inplay livescores endpoint.
+
+        Accepts `include` and any other query params and returns payload
+        or dict with `error` on failure. Requires `SPORTMONKS_KEY` in env
+        or passed via test_config as `SPORTMONKS_KEY`.
+        """
+        key = os.getenv('SPORTMONKS_KEY') or current_app.config.get('SPORTMONKS_KEY') or current_app.config.get('API_KEY')
+        if not key:
+            return {'error': 'API key for SportMonks is not configured. Please set SPORTMONKS_KEY.'}
+
+        cache = current_app.config['CACHE']
+        query_key = f"livescores:inplay:{include or ''}"
+        # include extra params in cache key if present
+        if extra_params:
+            extra_key = ":".join(f"{k}={v}" for k, v in sorted(extra_params.items()))
+            query_key = f"{query_key}:{extra_key}"
+
+        cached = cache.get(query_key)
+        ts = cache.get('timestamp')
+        ttl = current_app.config.get('CACHE_TTL', 3600)
+        if cached and ts and (datetime.now() - ts).total_seconds() < ttl:
+            return cached
+
+        session = current_app.config['SESSION']
+        headers = {"Authorization": f"Bearer {key}"}
+        url = 'https://api.sportmonks.com/v3/football/livescores/inplay'
+        params = {}
+        if include:
+            params['include'] = include
+        # merge any extra params
+        params.update({k: v for k, v in extra_params.items() if v is not None})
+
+        try:
+            resp = session.get(url, headers=headers, params=params, timeout=10)
+        except requests.RequestException as e:
+            logger.exception('Error fetching livescores inplay')
+            return {'error': f'Network error while fetching livescores: {e}'}
+
+        if resp.status_code != 200:
+            logger.warning('Livescores API responded with status %s', resp.status_code)
+            return {'error': f'API Error: {resp.status_code} - Unable to fetch livescores'}
+
+        payload = resp.json()
+        cache[query_key] = payload
+        cache['timestamp'] = datetime.now()
+        return payload
+
+    @app.route('/livescores/inplay')
+    def livescores_inplay():
+        from flask import request, jsonify
+
+        include = request.args.get('include')
+        # pass through any other params as a flexible dictionary
+        extra = {k: v for k, v in request.args.items() if k != 'include'}
+
+        data = get_livescores_inplay(include=include, **extra)
         if isinstance(data, dict) and 'error' in data:
             return render_template('error.html', message=data['error']), 503
         return jsonify(data)

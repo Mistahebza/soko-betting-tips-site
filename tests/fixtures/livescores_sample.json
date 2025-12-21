@@ -1,0 +1,19 @@
+{
+  "data": [
+    {
+      "id": 19427543,
+      "name": "Manchester United vs Brighton & Hove Albion",
+      "starting_at": "2025-10-25 16:30:00",
+      "participants": [
+        {"id": 14, "name": "Manchester United"},
+        {"id": 78, "name": "Brighton & Hove Albion"}
+      ],
+      "scores": [
+        {"participant": "home", "goals": 0},
+        {"participant": "away", "goals": 0}
+      ],
+      "events": [],
+      "league": {"id": 8, "name": "Premier League", "country": {"id": 462, "name": "England"}}
+    }
+  ]
+}
