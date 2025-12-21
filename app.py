@@ -349,6 +349,50 @@ def create_app(test_config=None):
             return render_template('error.html', message=data['error']), 503
         return jsonify(data)
 
+    def get_seasons():
+        """Fetch available seasons from API-Sports /leagues/seasons endpoint.
+
+        Returns a dict payload or dict with `error` key on failure.
+        """
+        key = os.getenv('API_SPORTS_KEY') or current_app.config.get('API_KEY')
+        if not key:
+            return {'error': 'API key for API-Sports is not configured. Please set API_SPORTS_KEY or API_FOOTBALL_KEY.'}
+
+        cache = current_app.config['CACHE']
+        cached = cache.get('seasons')
+        ts = cache.get('timestamp')
+        ttl = current_app.config.get('CACHE_TTL', 3600)
+        if cached and ts and (datetime.now() - ts).total_seconds() < ttl:
+            return cached
+
+        session = current_app.config['SESSION']
+        headers = {"x-apisports-key": key}
+        url = 'https://v3.football.api-sports.io/leagues/seasons'
+
+        try:
+            resp = session.get(url, headers=headers, timeout=10)
+        except requests.RequestException as e:
+            logger.exception('Error fetching seasons')
+            return {'error': f'Network error while fetching seasons: {e}'}
+
+        if resp.status_code != 200:
+            logger.warning('Seasons API responded with status %s', resp.status_code)
+            return {'error': f'API Error: {resp.status_code} - Unable to fetch seasons'}
+
+        payload = resp.json()
+        cache['seasons'] = payload
+        cache['timestamp'] = datetime.now()
+        return payload
+
+    @app.route('/seasons')
+    def seasons():
+        from flask import jsonify
+
+        data = get_seasons()
+        if isinstance(data, dict) and 'error' in data:
+            return render_template('error.html', message=data['error']), 503
+        return jsonify(data)
+
     @app.route('/')
     def home():
         predictions = get_predictions()
