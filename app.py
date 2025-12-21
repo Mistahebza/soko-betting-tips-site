@@ -393,6 +393,83 @@ def create_app(test_config=None):
             return render_template('error.html', message=data['error']), 503
         return jsonify(data)
 
+    def get_team_statistics(league=None, team=None, season=None, date=None):
+        """Fetch team statistics from API-Sports `teams/statistics` endpoint.
+
+        Accepts filters: `league`, `team`, `season`, optional `date` (YYYY-MM-DD).
+        Returns payload dict or dict with `error` key on failure.
+        """
+        key = os.getenv('API_SPORTS_KEY') or current_app.config.get('API_KEY')
+        if not key:
+            return {'error': 'API key for API-Sports is not configured. Please set API_SPORTS_KEY or API_FOOTBALL_KEY.'}
+
+        cache = current_app.config['CACHE']
+        query_key = f"teamstats:{league or ''}:{team or ''}:{season or ''}:{date or ''}"
+        cached = cache.get(query_key)
+        ts = cache.get('timestamp')
+        ttl = current_app.config.get('CACHE_TTL', 3600)
+        if cached and ts and (datetime.now() - ts).total_seconds() < ttl:
+            return cached
+
+        session = current_app.config['SESSION']
+        headers = {"x-apisports-key": key}
+        url = 'https://v3.football.api-sports.io/teams/statistics'
+        params = {}
+        if league is not None:
+            params['league'] = league
+        if team is not None:
+            params['team'] = team
+        if season is not None:
+            params['season'] = season
+        if date:
+            params['date'] = date
+
+        try:
+            resp = session.get(url, headers=headers, params=params, timeout=10)
+        except requests.RequestException as e:
+            logger.exception('Error fetching team statistics')
+            return {'error': f'Network error while fetching team statistics: {e}'}
+
+        if resp.status_code != 200:
+            logger.warning('Team statistics API responded with status %s', resp.status_code)
+            return {'error': f'API Error: {resp.status_code} - Unable to fetch team statistics'}
+
+        payload = resp.json()
+        cache[query_key] = payload
+        cache['timestamp'] = datetime.now()
+        return payload
+
+    @app.route('/teams/statistics')
+    def team_statistics():
+        from flask import request, jsonify
+
+        league = request.args.get('league')
+        team = request.args.get('team')
+        season = request.args.get('season')
+        date = request.args.get('date')
+
+        # Normalize numeric params
+        if league is not None:
+            try:
+                league = int(league)
+            except ValueError:
+                pass
+        if team is not None:
+            try:
+                team = int(team)
+            except ValueError:
+                pass
+        if season is not None:
+            try:
+                season = int(season)
+            except ValueError:
+                pass
+
+        data = get_team_statistics(league=league, team=team, season=season, date=date)
+        if isinstance(data, dict) and 'error' in data:
+            return render_template('error.html', message=data['error']), 503
+        return jsonify(data)
+
     @app.route('/')
     def home():
         predictions = get_predictions()

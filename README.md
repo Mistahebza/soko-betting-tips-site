@@ -88,6 +88,18 @@ curl -s "http://127.0.0.1:5000/timezone" | jq .
 curl -s "http://127.0.0.1:5000/seasons" | jq .
 ```
 
+- Get team statistics for league/team/season:
+
+```bash
+curl -s "http://127.0.0.1:5000/teams/statistics?league=39&team=33&season=2019" | jq .
+```
+
+- Get team statistics filtered by end date:
+
+```bash
+curl -s "http://127.0.0.1:5000/teams/statistics?league=39&team=33&season=2019&date=2019-10-08" | jq .
+```
+
 ## CI
 
 A GitHub Actions workflow is included at `.github/workflows/ci.yml` which runs tests on push and PRs.
