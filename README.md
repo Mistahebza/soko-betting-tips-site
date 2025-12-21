@@ -117,6 +117,18 @@ curl -s "http://127.0.0.1:5000/fixtures?league=8&date=2025-10-25" | jq .
 ```bash
 curl -s "http://127.0.0.1:5000/fixtures?team=14&from=2025-10-01&to=2025-10-31" | jq .
 ```
+
+### Test fixtures sample 🧪
+
+A sample fixtures payload used by the unit tests is included at `tests/fixtures/fixtures_sample.json`.
+You can run the test that uses this sample with:
+
+```bash
+pytest tests/test_fixtures_payload.py -q
+```
+
+This test verifies the `/fixtures` endpoint handles the sample payload and that filtering (e.g., `?team=14`) is forwarded to the upstream request.
+
 ## CI
 
 A GitHub Actions workflow is included at `.github/workflows/ci.yml` which runs tests on push and PRs.
