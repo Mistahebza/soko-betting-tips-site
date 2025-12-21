@@ -82,6 +82,12 @@ curl -s "http://127.0.0.1:5000/countries?search=engl" | jq .
 curl -s "http://127.0.0.1:5000/timezone" | jq .
 ```
 
+- List available seasons:
+
+```bash
+curl -s "http://127.0.0.1:5000/seasons" | jq .
+```
+
 ## CI
 
 A GitHub Actions workflow is included at `.github/workflows/ci.yml` which runs tests on push and PRs.
