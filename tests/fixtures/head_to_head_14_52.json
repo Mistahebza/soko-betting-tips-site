@@ -1,0 +1,18 @@
+{
+  "data": [
+    {
+      "fixture_id": 19427612,
+      "name": "Manchester United vs AFC Bournemouth",
+      "starting_at": "2025-12-15 20:00:00",
+      "participants": [
+        {"id": 14, "name": "Manchester United"},
+        {"id": 52, "name": "AFC Bournemouth"}
+      ],
+      "scores": [
+        {"participant": "home", "goals": 1},
+        {"participant": "away", "goals": 1}
+      ],
+      "events": []
+    }
+  ]
+}

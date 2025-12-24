@@ -125,7 +125,14 @@ curl -s "http://127.0.0.1:5000/livescores/inplay?include=participants;scores;per
   -H "Authorization: Bearer $SPORTMONKS_KEY" | jq .
 ```
 
-Note: provide a SportMonks API key via `export SPORTMONKS_KEY=...` for this endpoint.
+- Head-to-head fixtures (SportMonks):
+
+```bash
+curl -s "http://127.0.0.1:5000/fixtures/head-to-head/14/52?include=participants;league;scores;state;venue;events&limit=5" \
+  -H "Authorization: Bearer $SPORTMONKS_KEY" | jq .
+```
+
+Note: provide a SportMonks API key via `export SPORTMONKS_KEY=...` for these endpoints.
 
 ### Test fixtures sample 🧪
 
