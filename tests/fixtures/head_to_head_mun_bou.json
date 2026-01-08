@@ -1,0 +1,170 @@
+{
+  "data": [
+  {
+    "id": 19427612,
+    "sport_id": 1,
+    "league_id": 8,
+    "season_id": 25583,
+    "stage_id": 77476879,
+    "group_id": null,
+    "aggregate_id": null,
+    "round_id": 372210,
+    "state_id": 5,
+    "venue_id": 206,
+    "name": "Manchester United vs AFC Bournemouth",
+    "starting_at": "2025-12-15 20:00:00",
+    "result_info": "Game ended in draw.",
+    "leg": "1/1",
+    "details": null,
+    "length": 90,
+    "placeholder": false,
+    "has_odds": true,
+    "has_premium_odds": true,
+    "starting_at_timestamp": 1765828800,
+    "participants": [
+      {
+        "id": 14,
+        "sport_id": 1,
+        "country_id": 462,
+        "venue_id": 206,
+        "gender": "male",
+        "name": "Manchester United",
+        "short_code": "MUN",
+        "image_path": "https://cdn.sportmonks.com/images/soccer/teams/14/14.png",
+        "founded": 1878,
+        "type": "domestic",
+        "placeholder": false,
+        "last_played_at": "2025-12-15 20:00:00",
+        "meta": {
+          "location": "home",
+          "winner": false,
+          "position": 8
+        }
+      },
+      {
+        "id": 52,
+        "sport_id": 1,
+        "country_id": 462,
+        "venue_id": 146,
+        "gender": "male",
+        "name": "AFC Bournemouth",
+        "short_code": "BOU",
+        "image_path": "https://cdn.sportmonks.com/images/soccer/teams/20/52.png",
+        "founded": 1899,
+        "type": "domestic",
+        "placeholder": false,
+        "last_played_at": "2025-12-20 15:00:00",
+        "meta": {
+          "location": "away",
+          "winner": false,
+          "position": 15
+        }
+      }
+    ],
+    "league": {
+      "id": 8,
+      "sport_id": 1,
+      "country_id": 462,
+      "name": "Premier League",
+      "active": true,
+      "short_code": "UK PL",
+      "image_path": "https://cdn.sportmonks.com/images/soccer/leagues/8/8.png",
+      "type": "league",
+      "sub_type": "domestic",
+      "last_played_at": "2025-12-20 20:00:00",
+      "category": 1,
+      "has_jerseys": false
+    },
+    "scores": [
+      {
+        "id": 17651010,
+        "fixture_id": 19427612,
+        "type_id": 1,
+        "participant_id": 14,
+        "score": {
+          "goals": 2,
+          "participant": "home"
+        },
+        "description": "1ST_HALF"
+      },
+      {
+        "id": 17651013,
+        "fixture_id": 19427612,
+        "type_id": 2,
+        "participant_id": 52,
+        "score": {
+          "goals": 4,
+          "participant": "away"
+        },
+        "description": "2ND_HALF"
+      }
+    ],
+    "state": {
+      "id": 5,
+      "state": "FT",
+      "name": "Full Time",
+      "short_name": "FT",
+      "developer_name": "FT"
+    },
+    "venue": {
+      "id": 206,
+      "country_id": 462,
+      "city_id": 53964,
+      "name": "Old Trafford",
+      "address": "Sir Matt Busby Way",
+      "zipcode": null,
+      "latitude": "53.463056",
+      "longitude": "-2.291389",
+      "capacity": 74879,
+      "image_path": "https://cdn.sportmonks.com/images/soccer/venues/14/206.png",
+      "city_name": "Manchester",
+      "surface": "grass",
+      "national_team": false
+    },
+    "events": [
+      {
+        "id": 152376579,
+        "fixture_id": 19427612,
+        "period_id": 6429072,
+        "participant_id": 52,
+        "type_id": 18,
+        "section": "event",
+        "player_id": 37550443,
+        "related_player_id": 262324,
+        "player_name": "Alex Scott",
+        "related_player_name": "Tyler Adams",
+        "result": null,
+        "info": null,
+        "addition": "1st Substitution",
+        "minute": 5,
+        "extra_minute": null,
+        "injured": null,
+        "on_bench": false,
+        "coach_id": null,
+        "sub_type_id": null,
+        "detailed_period_id": 6429072,
+        "rescinded": null,
+        "sort_order": 1
+      }
+    ],
+    "periods": [
+      {
+        "id": 6429072,
+        "fixture_id": 19427612,
+        "type_id": 1,
+        "started": 1765828838,
+        "ended": 1765831870,
+        "counts_from": 0,
+        "ticking": false,
+        "sort_order": 1,
+        "description": "1st-half",
+        "time_added": 5,
+        "period_length": 45,
+        "minutes": 50,
+        "seconds": 32,
+        "has_timer": false
+      }
+    ]
+  }
+  ]
+}
